@@ -20,8 +20,8 @@ else
         'protocol' => 'smtp', // 'mail', 'sendmail', or 'smtp'
         'smtp_host' => 'ssl://smtp.googlemail.com',
         'smtp_port' => 465,
-        'smtp_user' => 'mk.idea2code2@gmail.com',
-        'smtp_pass' => 'Mital@idea2code2',//can be 'ssl' or 'tls' for example
+        'smtp_user' => 'mitalkachhadiya951@gmail.com',
+        'smtp_pass' => 'czxv bqed lzrj spsb',//can be 'ssl' or 'tls' for example
         'mailtype' => 'html', //plaintext 'text' mails or 'html'
         'smtp_timeout' => '7', //in seconds
         'charset' => 'iso-8859-1',

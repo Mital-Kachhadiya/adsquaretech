@@ -32248,3 +32248,25 @@ img.away, img.busy, img.offline, img.online {
 .height-100{
   max-width: 120px !important;
 }
+#imgPreview{
+  max-height:150px;
+  max-width:150px;
+  border-radius : 3px;
+  margin: 5px;
+}
+input[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+.validation-error{
+  color: red;
+}
+.box-footer{
+  border-top:none;
+  padding: 1.5rem 0;
+}

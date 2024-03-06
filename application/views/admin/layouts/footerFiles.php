@@ -11,3 +11,5 @@
 	<!-- CRMi App -->
 	<script src="<?php echo ADMIN_ASSETS; ?>js/template.js"></script>
 	<script src="<?php echo ADMIN_ASSETS; ?>js/pages/dashboard.js"></script>
+
+	<script src="<?php echo ADMIN_ASSETS; ?>js/toastr.min.js" ></script>

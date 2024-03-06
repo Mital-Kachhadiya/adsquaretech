@@ -65,7 +65,7 @@
 										<!-- /.col -->
 										<div class="col-6">
 										 <div class="fog-pwd text-end">
-											<a href="javascript:void(0)" class="hover-warning"><i class="ion ion-locked"></i> Forgot pwd?</a><br>
+											<a href="<?= base_url('admin/forgot-password') ?>" class="hover-warning"><i class="ion ion-locked"></i> Forgot pwd?</a><br>
 										  </div>
 										</div>
 										<!-- /.col -->

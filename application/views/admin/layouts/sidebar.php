@@ -3,7 +3,7 @@
  if ($adminData['image'] == "") {
     $imagePath = NO_IMAGE_ADMIN;
   } else {
-    $image = 'images/admin/' . $adminData['image'];
+	$image = 'images/profile/'.$adminData['image'];
     if (file_exists($image)) {
       $imagePath = base_url() . $image;
     } else {
@@ -16,7 +16,7 @@
     <section class="sidebar position-relative">
 		<div class="d-flex align-items-center logo-box justify-content-start d-md-block d-none">	
 			<!-- Logo -->
-			<a href="index.html" class="logo">
+			<a href="<?php echo base_url('admin/dashboard'); ?>" class="logo">
 			  <!-- logo-->
 			  <div class="logo-mini">
 				  <span class="light-logo"><img src="<?php echo ADMIN_ASSETS; ?>img/logo.jpg" alt="logo"></span>
@@ -38,9 +38,8 @@
 				<div class="info">
 					<a class="dropdown-toggle p-15 d-grid" data-bs-toggle="dropdown" href="#"></a>
 					<div class="dropdown-menu dropdown-menu-end">
-					  <a class="dropdown-item" href="extra_profile.html"><i class="ti-user"></i> Profile</a>
-					  <!-- <a class="dropdown-item" href="mailbox.html"><i class="ti-email"></i> Inbox</a>
-					  <a class="dropdown-item" href="contact_app_chat.html"><i class="ti-link"></i> Conversation</a> -->
+					  <a class="dropdown-item" href="<?php echo base_url('admin/profile'); ?>"><i class="ti-user"></i> Profile</a>
+					 <a class="dropdown-item" href="<?php echo base_url('admin/change-password'); ?>"><i class="ti-key"></i> Change Password</a> 
 					  <div class="dropdown-divider"></div>
 					  <a class="dropdown-item" href="<?php echo base_url('admin/logout'); ?>"><i class="ti-lock"></i> Logout</a>
 					</div>

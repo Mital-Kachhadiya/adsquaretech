@@ -53,12 +53,11 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['reset-password/(:any)'] = 'ResetPassword/index/$1';
-$route['reset-pass/(:any)'] = 'Login/reset_pass/$1';
+$route['reset-password/(:any)'] = 'admin/ResetPassword/index/$1';
 
 // admin 
 $route['admin'] = 'admin/Login';
 $route['admin/logout'] = 'admin/Logout';
-$route['admin/forgot-pass-req'] = 'admin/ForgotPassReq/index';
-$route['admin/update-profile'] = 'admin/UpdateProfile/index';
-$route['admin/updateProfile'] = 'admin/ClubUpdateProfile/index';
+$route['admin/forgot-password'] = 'admin/ForgotPassword/index';
+$route['admin/profile'] = 'admin/Profile/index';
+$route['admin/change-password'] = 'admin/Profile/changePassword';
