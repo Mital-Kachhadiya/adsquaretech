@@ -32270,3 +32270,19 @@ input[type="file"] {
   border-top:none;
   padding: 1.5rem 0;
 }
+.width-auto{
+  width: auto;
+}
+.w-100{
+   width:100px;
+}
+.plus-icon{
+  font-size: 30px;
+  padding-top: 2px;
+    color: green;
+}
+.minus-icon{
+  font-size: 30px;
+  padding-top: 2px;
+    color: red;
+}

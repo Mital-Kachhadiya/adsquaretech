@@ -13,3 +13,10 @@
 	<script src="<?php echo ADMIN_ASSETS; ?>js/pages/dashboard.js"></script>
 
 	<script src="<?php echo ADMIN_ASSETS; ?>js/toastr.min.js" ></script>
+	<script src="<?php echo ADMIN_ASSETS; ?>vendor_components/datatable/datatables.min.js"></script>	
+	<script src="<?php echo ADMIN_ASSETS; ?>js/pages/data-table.js"></script>
+
+	<!-- <script src="//cdn.datatables.net/2.0.1/js/dataTables.min.js" ></script> -->
+	<!-- <script src="https://cdn.datatables.net/buttons/3.0.0/js/dataTables.buttons.min.js" ></script> -->
+	
+	
