@@ -221,11 +221,11 @@
                                         <div class="form-group">
                                             <label class="form-label">   Indirect Tax Information</label>
                                             <input name="group5" type="radio" id="radio_01" class="with-gap radio-col-primary" checked />
-						<label for="radio_01">I am registered for Indirect Tax in Hong Kong</label>
-                        <input name="group5" type="radio" id="radio_02" class="with-gap radio-col-primary" checked />
-						<label for="radio_02">I am registered for Indirect Tax in a different Country / Region</label>
-                        <input name="group5" type="radio" id="radio_03" class="with-gap radio-col-primary" checked />
-						<label for="radio_03"> I am not registered for Indirect Tax</label>
+                                            <label for="radio_01">I am registered for Indirect Tax in Hong Kong</label>
+                                            <input name="group5" type="radio" id="radio_02" class="with-gap radio-col-primary" checked />
+                                            <label for="radio_02">I am registered for Indirect Tax in a different Country / Region</label>
+                                            <input name="group5" type="radio" id="radio_03" class="with-gap radio-col-primary" checked />
+                                            <label for="radio_03"> I am not registered for Indirect Tax</label>
                                         </div>
                                     </div>
 
