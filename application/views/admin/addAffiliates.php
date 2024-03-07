@@ -220,12 +220,12 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="form-label">   Indirect Tax Information</label>
-                                            <select class="form-select me-2 " id="c_country_id" name="c_country_id">
-                                            <?php foreach ($timezones as $t) { ?>
-                                                <option value="<?php echo $t['identifier']; ?>" <?php if (@$affiliates['identifier'] == $t['identifier']) { echo "selected"; } ?>><?php echo $t['description']; ?></option>
-                                            <?php } ?>
-                                        </select>
-                                            <p id="countryError"  class="validation-error"></p>
+                                            <input name="group5" type="radio" id="radio_01" class="with-gap radio-col-primary" checked />
+						<label for="radio_01">I am registered for Indirect Tax in Hong Kong</label>
+                        <input name="group5" type="radio" id="radio_02" class="with-gap radio-col-primary" checked />
+						<label for="radio_02">I am registered for Indirect Tax in a different Country / Region</label>
+                        <input name="group5" type="radio" id="radio_03" class="with-gap radio-col-primary" checked />
+						<label for="radio_03"> I am not registered for Indirect Tax</label>
                                         </div>
                                     </div>
 
@@ -310,12 +310,42 @@
 
                                     <div class="col-md-12 mb-20">
                                     <label class="form-label me-2 w-100">Social Networks</label>
-                                        <button type="button" class="btn  btn-toggle " data-bs-toggle="button" >
+                                        <button type="button" class="btn  btn-toggle " data-bs-toggle="button" id="social_toggle" >
                                             <span class="handle"></span>
                                         </button>
                                         </div>	
+
+                                        <div id="socialFields" style="display:none;" >
+                                    <!-- Add or remove input fields dynamically here -->
+                                    <div class="social_field_wrapper">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group d-flex align-items-center">
+                                                    <select class="form-select me-2 width-auto">
+                                                        <option>Facebook</option>
+                                                        <option>Twitter</option>
+                                                        <option>Instagram</option>
+                                                        <option>Pintrest</option>
+                                                        <option>Linkedin</option>
+                                                        <option>Youtube</option>
+                                                        <option>Tiktok</option>
+                                                        <option>Twich</option>
+                                                        <option>Wechat</option>
+                                                        <option>Weibo</option>
+                                                        <option>Snapchat</option>
+                                                    </select>
+                                                    <input type="text" class="form-control" name="lname" id="lname" placeholder="Account URL">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <a href="javascript:void(0);" class="social_add_input_button" title="Add field"><i class="fa fa-plus-circle plus-icon"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
                                     
                                     </div>
+
 
 
                             </div>
@@ -458,6 +488,27 @@
         });
         // Remove dynamically added button using event delegation
     $(mobile_field_wrapper).on('click', '.mobile_remove_input_button', function (e) {
+        e.preventDefault();
+        $(this).closest('.row').remove();
+        input_count--;
+    });
+
+
+
+    $('#social_toggle').on('click', function () {
+            $('#socialFields').toggle();
+        });
+        
+        var social_add_input_button = $('.social_add_input_button');
+        var social_field_wrapper = $('.social_field_wrapper');
+        var social_new_field_html = ' <div class="row"><div class="col-md-6"><div class="form-group d-flex align-items-center"><select class="form-select me-2 width-auto"><option>Facebook</option><option>Twitter</option><option>Instagram</option><option>Pintrest</option><option>Linkedin</option><option>Youtube</option><option>Tiktok</option><option>Twich</option><option>Wechat</option><option>Weibo</option><option>Snapchat</option></select><input type="text" class="form-control" name="lname" id="lname" placeholder="Account URL"></div></div><div class="col-md-2"><a href="javascript:void(0);" class="social_remove_input_button" title="Remove field"><i class="fa fa-minus-circle minus-icon"></i></a></div>';
+        var input_count = 1;
+        // Add button dynamically
+        $(social_add_input_button).click(function(){
+        $(social_field_wrapper).append(social_new_field_html);
+        });
+        // Remove dynamically added button using event delegation
+    $(social_field_wrapper).on('click', '.social_remove_input_button', function (e) {
         e.preventDefault();
         $(this).closest('.row').remove();
         input_count--;
