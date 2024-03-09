@@ -32,7 +32,7 @@
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><a href="<?php echo base_url("admin/dashboard"); ?>"><i class="mdi mdi-home-outline"></i></a></li>
 								<li class="breadcrumb-item"><a href="<?php echo base_url("admin/affiliates" ); ?>">Affiliates</a></li>
-								<li class="breadcrumb-item" aria-current="page">Add Affiliates</li>
+								<li class="breadcrumb-item" aria-current="page"><?= @$affiliates ? 'Edit':'Add'; ?> Affiliates</li>
 							</ol>
 						</nav>
 					</div>
@@ -404,12 +404,12 @@
 
                                     <div class="col-md-12 mb-20">
                                     <label class="form-label me-2 w-120">Social Networks</label>
-                                        <button type="button" class="btn  btn-toggle  <?php if (@$affiliates["social_property"] == 3) {echo "active";} ?> " data-bs-toggle="button" id="social_toggle" >
+                                        <button type="button" class="btn  btn-toggle  <?php if (@$affiliates["social_property"] == 1) {echo "active";} ?> " data-bs-toggle="button" id="social_toggle" >
                                             <span class="handle"></span>
                                         </button>
                                         </div>	
 
-                                        <?php if(@$affiliates['mobile_property'] == 1){ ?>
+                                        <?php if(@$affiliates['social_property'] == 1){ ?>
                                     <div id="socialFields" >
                                         <div class="social_field_wrapper">
                                     <?php
@@ -745,21 +745,7 @@
   
     });
 
-    function remove_property(id){
-        $('#propery_'+id).addClass('d-none');
-    //     $.ajax({
-    //     type: 'POST',
-    //     url: "<?php echo base_url("admin/affiliates/removeProperty"); ?>",
-    //     data: { id: id },
-    //     dataType: 'json',
-    //     success: function (states) {
-    //        $('#propery_'+id).addClass('d-none');
-    //     },
-    //     error: function (xhr, status, error) {
-    //         console.error('Error fetching states:', error);
-    //     }
-    // });
-    }
+   
 </script>
 </body>
 </html>

@@ -7,7 +7,7 @@
     <meta name="description" content="Adsquaretech">
     <meta name="author" content="Adsquaretech">
     <link rel="icon" href="<?php echo ADMIN_ASSETS; ?>img/logo.jpg">
-    <title>Adsquaretech - Affiliates </title>
+    <title>Adsquaretech - Offers </title>
     <?php $this->load->view('admin/layouts/headerFiles'); ?>
   </head>
 
@@ -26,18 +26,18 @@
 		<div class="content-header">
     <div class="d-flex align-items-center justify-content-between">
         <div class="me-auto">
-            <h4 class="page-title">Affiliates</h4>
+            <h4 class="page-title">Offer</h4>
             <div class="d-inline-block align-items-center">
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard'); ?>"><i class="mdi mdi-home-outline"></i></a></li>
-                        <li class="breadcrumb-item" aria-current="page" >Manage Affiliates</li>
+                        <li class="breadcrumb-item" aria-current="page" >Manage Offer</li>
                     </ol>
                 </nav>
             </div>
         </div>
         <div class="d-flex align-items-center">
-            <a href="<?php echo base_url('admin/affiliates/addAffiliates');?>" class="btn btn-primary">+ New Affiliates</a>
+            <a href="<?php echo base_url('admin/offers/addOffer');?>" class="btn btn-primary">+ New Offer</a>
         </div>
     </div>
 </div>
@@ -50,15 +50,14 @@
 				<!-- /.box-header -->
 				<div class="box-body">
 					<div class="table-responsive">
-					  <table id="AffiliatesTable" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+					  <table id="offerTable" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
 						<thead>
 							<tr>
 								<th>ID</th>
-								<th>First Name</th>
-								<th>Last Name</th>
-								<th>Email</th>
-								<th>Status</th>
-								<th>Created date</th>
+								<th>Name</th>
+								<th>Category</th>
+								<th>SubCategory</th>
+								<th>url</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -67,12 +66,11 @@
 						</tbody>				  
 						<tfoot>
 							<tr>
-								<th>ID</th>
-								<th>First Name</th>
-								<th>Last Name</th>
-								<th>Email</th>
-								<th>Status</th>
-								<th>created date</th>
+                            <th>ID</th>
+								<th>Name</th>
+								<th>Category</th>
+								<th>SubCategory</th>
+								<th>url</th>
 								<th>Actions</th>
 							</tr>
 						</tfoot>
@@ -97,14 +95,14 @@
 <?php $this->load->view('admin/layouts/footerFiles'); ?>
 <script>
    $(document).ready(function() {
-
     let successMsg = "<?php echo $this->session->flashdata('successMsg'); ?>";
     if(successMsg != "")
     {
         toastr.success(successMsg);
     }
 
-      $('#AffiliatesTable').DataTable({
+
+      $('#offerTable').DataTable({
         dom: 'Bfrtip',
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
         buttons: [ 'copy', 'excel', 'pdf'],
@@ -114,55 +112,23 @@
         "responsive": true,
         "order": [],
         "ajax": {
-          "url": "<?php echo base_url('admin/affiliates/getLists'); ?>",
+          "url": "<?php echo base_url('admin/offers/getLists'); ?>",
           "type": "POST"
         },
         "columnDefs": [{ 
-          "targets": [6],
+          "targets": [4],
           "orderable": false
         }]
       });
     });
 
-    function changeStatus(id, value)
-    {
-        $.ajax({
-            url: "<?php echo base_url('admin/affiliates/actionActiveDeactive'); ?>",
-            type: "POST",
-            data: { id : id , value : value},
-            dataType:'JSON',
-            beforeSend : function()
-            {
-              $("#statusUpdateLoader"+id).removeAttr('style');
-            },
-            success: function(data)
-            {
-                if (data.status == 1) {
-                  toastr.success(data.message);
-                  $('#AffiliatesTable').DataTable().ajax.reload( null, false );  
-                }
-                else
-                {
-                  toastr.error(data.message);
-                  $('#AffiliatesTable').DataTable().ajax.reload( null, false ); 
-                }
-            },
-            error: function()
-            {
-              toastr.error("Something went wrong!");
-            },
-            complete: function()
-            {
-              $("#statusUpdateLoader"+id).attr('style','display:none;');
-            }
-        });
-    }
+   
 
 
-    function deleteAffiliates(id){
+    function deleteOffer(id){
         swal({
             title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this Affiliates's data!",
+            text: "Once deleted, you will not be able to recover this Offer's data!",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -172,9 +138,9 @@
 
             if (willDelete) {
                 $.ajax({
-                    url: "<?php echo base_url('admin/affiliates/actionDeleteSingle'); ?>",
+                    url: "<?php echo base_url('admin/offers/actionDeleteSingle'); ?>",
                     type: "POST",
-                    data: { affiliates_id : id },
+                    data: { offer_id : id },
                     dataType:'JSON',
                     beforeSend : function()
                     {
@@ -184,7 +150,7 @@
                     {
                         if (data.status == 1) {
                           toastr.success(data.message);
-                          $('#AffiliatesTable').DataTable().ajax.reload( null, false );  
+                          $('#offerTable').DataTable().ajax.reload( null, false );  
                         }
                         else
                         {

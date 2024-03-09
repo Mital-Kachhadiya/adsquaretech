@@ -36,14 +36,28 @@ class Affiliates extends CI_Controller {
             $i++;
           
             $sub_array = array();  
+
+            if($member->status == "1")
+            {
+                $status = '
+                <a onClick="changeStatus('.$member->id.',0)" class="btn btn-sm btn-warning mr-2"><i class="fa fa-ban list-icon"></i></a><i class="mr-2"></i>';
+            }
+            else
+            {
+                $status = '<a onClick="changeStatus('.$member->id.',1)" class="btn btn-sm btn-success mr-2"><i class="fa fa-check-square-o list-icon"></i></a><i class="mr-2"></i>';
+            }
+
+            
+            $dateTimeObject = new DateTime($member->created_at);
+            $newDateFormat = $dateTimeObject->format('d-m-Y');
             
             $sub_array[] = $member->id; 
             $sub_array[] = $member->fname; 
             $sub_array[] = $member->lname; 
             $sub_array[] = $member->email; 
-            $sub_array[] = $member->status;
-            $sub_array[] = $member->created_at;
-            $sub_array[] = '<a href="'.base_url('admin/affiliates/addAffiliates/').encrypt_url($member->id).'" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a><i class="mr-2"></i><a id="deleteBtn'.$member->id.'" style="color:white;" onClick="deleteClub('.$member->id.')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>';
+            $sub_array[] = $member->status == 0 ? '<div class=" py-10 w-100"><span class="badge badge-warning">Inactive</span></div>': ' <div class=" py-10 w-100"><span class="badge badge-success">active</span></div>';
+            $sub_array[] = $newDateFormat;
+            $sub_array[] = $status.'<a href="'.base_url('admin/affiliates/addAffiliates/').encrypt_url($member->id).'" class="btn btn-sm btn-primary mr-2"><i class="fa fa-edit list-icon"></i></a><a id="deleteBtn'.$member->id.'" style="color:white;" onClick="deleteAffiliates('.$member->id.')" class="btn btn-sm btn-danger"><i class="fa fa-trash list-icon"></i></a>';
             $data[] = $sub_array; 
         }
         
@@ -104,10 +118,20 @@ class Affiliates extends CI_Controller {
         $this->SecurityModel->adminRole('affiliates');
 		$response = array();
         $response['status'] = "0"; 
+        $affiliates_id = $this->input->post('affiliates_id');
         $this->form_validation->set_rules('fname', 'First Name', 'trim|required');
         $this->form_validation->set_rules('lname', 'Last Name', 'trim|required');
         $this->form_validation->set_rules('username', 'UserName', 'trim|required');
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+
+        if($affiliates_id != "")
+        {
+            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email'); // add validation for the email and check the emailColumn in userTable for unique value
+            $checkEmail = $this->QueryModel->selectSingelRecord('tbl_affiliates',array('email'=>$this->input->post('email'),'id!='=>$affiliates_id));   
+        }
+        else{
+            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[tbl_affiliates.email]');
+        }
+
         $this->form_validation->set_rules('cemail', 'Confirm Email', 'trim|required|matches[email]|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
         $this->form_validation->set_rules('cpassword', 'Confirm Password', 'trim|required|matches[password]');
@@ -144,10 +168,14 @@ class Affiliates extends CI_Controller {
                 $response['dc_tax_numberError'] = strip_tags(form_error('dc_tax_number'));
             }
             $response['propertyTypeError'] = strip_tags(form_error('propertyType'));
-		}
+		} 
+        elseif($affiliates_id != "" && $checkEmail){
+        $response['status'] = "2";
+        $response['emailError'] = 'Email Id aleready exist';
+        }
 		else
 		{
-            $affiliates_id = $this->input->post('affiliates_id');
+           
             
             $adminId = $this->session->userdata('adsquareAdmin');
            
@@ -273,7 +301,7 @@ class Affiliates extends CI_Controller {
                     $so_descs = $this->input->post('so_desc');
                     for ($i = 0; $i < count($so_titles); $i++) {
                         $soPData['affiliates_id'] = $affiliates_id;
-                        $soPData['property_id'] = '1';
+                        $soPData['property_id'] = '3';
                         $soPData['title'] = $so_titles[$i];
                         $soPData['description'] = $so_descs[$i];
                         $this->QueryModel->insertRecord('tbl_property',$soPData);
@@ -299,6 +327,75 @@ class Affiliates extends CI_Controller {
 
         }
         echo json_encode($response);
+    }
+
+    public function actionActiveDeactive()
+    {
+        $this->SecurityModel->adminRole('affiliates');
+        $response = array();
+        $response['status'] = "0"; 
+        $id = $this->input->post('id');
+        $value = $this->input->post('value');
+        if($id != "" || $value != "")
+        {
+            $data = array(
+                'status' => $value
+            ); 
+            $update = $this->QueryModel->updateRecord('tbl_affiliates',$data,array('id'=>$id));
+            if($update)
+            {
+                $response['status'] = "1";
+                if($value == 1)
+                {
+                    $response['message'] = "Affiliates activated successfully.";
+                    $this->session->set_flashdata('successMsg', "Affiliates activated successfully.");
+                }
+                else
+                {
+                    $response['message'] = "Affiliates deactivated successfully.";
+                    $this->session->set_flashdata('successMsg', "Affiliates deactivated successfully.");
+                }
+            }   
+            else
+            {
+                $response['message'] = "Something went wrong!";
+            }   
+        }
+        else
+        {
+            $response['message'] = "Something went wrong!";
+        }
+        echo json_encode($response);
+    }
+
+
+    public function actionDeleteSingle()
+	{
+        $this->SecurityModel->adminRole('affiliates');
+		$response = array();
+        $response['status'] = "0"; 
+        $affiliates_id = $this->input->post('affiliates_id');
+        $checkAff = $this->QueryModel->selectSingelRecord('tbl_affiliates',array('id'=>$affiliates_id));
+        if(!empty($checkAff))
+        {
+            $delete = $this->QueryModel->deleteRecord('tbl_affiliates',array('id'=>$affiliates_id),'','');
+            $delete1 = $this->QueryModel->deleteRecord('tbl_property',array('affiliates_id'=>$affiliates_id),'','');
+            if($delete)
+            {
+                $response['status'] = "1";
+                $response['message'] = "Affiliates deleted successfully.";
+            }   
+            else
+            {
+                $response['message'] = "Something went wrong!";
+            } 
+        }
+        else
+        {
+            $response['message'] = "Something went wrong!";
+        }
+        
+		echo json_encode($response);
     }
 
 }

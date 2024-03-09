@@ -1,16 +1,16 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class AffiliatesTableModel extends CI_Model{
+class OfferTableModel extends CI_Model{
     private $order,$table,$column_order,$column_search;
 
     function __construct()
     {
-        $this->table = 'tbl_affiliates';
+        $this->table = 'tbl_offer';
         // Set orderable column fields
-        $this->column_order = array('id', 'fname', 'lname', 'email','status', 'created_at', null);
+        $this->column_order = array('id', 'name', 'category', 'subcategory','url', null);
         // Set searchable column fields
-        $this->column_search = array('fname', 'lname', 'email');
+        $this->column_search = array('name', 'category', 'subcategory', 'url');
         // Set default order
         $this->order = array('id' => 'desc');
     }

@@ -57,13 +57,13 @@
 					<span>Dashboard</span>
 				  </a>
 				</li>
-				<li>
+				<li class="offers">
 				  <a href="<?php echo base_url('admin/offers'); ?>">
 					<i class="icon-Chart-pie"><span class="path1"></span><span class="path2"></span></i>
 					<span>Offers</span>
 				  </a>
 				</li>
-				<li>
+				<li class="affiliates">
 				  <a href="<?php echo base_url('admin/affiliates'); ?>">
 					<i class="icon-Add-user"><span class="path1"></span><span class="path2"></span></i>
 					<span>Affiliates</span>
