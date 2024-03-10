@@ -633,14 +633,14 @@
         dataType: 'json',
         success: function (states) {
             // Reference to the state dropdown
-            var $stateSelect = $('#state_id');
+            var stateSelect = $('#c_state_id');
 
             // Clear existing options in the state dropdown
-            $stateSelect.empty();
+            stateSelect.empty();
 
             // Populate the state dropdown with the fetched states
             $.each(states, function (index, state) {
-                $stateSelect.append('<option value="' + state.id_state + '">' + state.state + '</option>');
+                stateSelect.append('<option value="' + state.id_state + '">' + state.state + '</option>');
             });
         },
         error: function (xhr, status, error) {

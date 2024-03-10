@@ -89,6 +89,7 @@ define('BASE_URL','http://'.$_SERVER['HTTP_HOST'].'/Adsquaretech/');
 define('PLUGIN', BASE_URL.'assets/plugin/');
 define('ADMIN_ASSETS', BASE_URL.'assets/admin/');
 
+
 define('NO_IMAGE_ADMIN', BASE_URL.'assets/admin/img/No-admin.png');
 define('NO_IMAGE', BASE_URL.'assets/admin/img/img-default.png');
 
